@@ -6,6 +6,8 @@ from urlparse import urlparse
 from airbnb_crawler.items import AirbnbItem
 
 
+KEY = "ck_066207cacfd44f8762ca24dc5c6cb8a03dc73dfe"
+SECRET = "cs_e3feecd8e87581c74bce441ff0f6700327a973cd"
 # QUERY = 'Los-Angeles--CA--United-States'
 # QUERY = 'Stockholm--Sweden'
 # QUERY = 'Lucca--Italy'
@@ -26,7 +28,7 @@ class AirbnbSpider(scrapy.Spider):
         last_page_number = self.last_pagenumer_in_search(response)
         if last_page_number:
             for pageNumber in range(1, last_page_number + 1):
-                page_url = response.url + "?page=%d" % pageNumber
+                page_url = response.url + "&page=%d" % pageNumber
                 yield scrapy.Request(page_url, callback=self.parse_listing_results_page)
 
     def parse_listing_results_page(self, response):
